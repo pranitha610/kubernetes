@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: project-rs
+spec:
+  replicas: 3 # 3 Pods should exist at all times.
+  selector:  # Pods label should be defined in ReplicaSet label selector
+    matchLabels:
+      app: test
+  template:
+    metadata:
+      name: project-pod
+      labels:
+        app: test
+        type: front-end # Atleast 1 Pod label should match with ReplicaSet Label Selector
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx
